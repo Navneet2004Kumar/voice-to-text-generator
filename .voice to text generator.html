@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text converter</title>
+    <style>
+        body {
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #ff00ff91;
+        }
+        .container {
+            margin-top: 50px;
+            height:300px;
+            width:330px;
+            border:3px solid black;
+            text-align: center;
+            justify-content: center;
+            display:block;
+            background-color:greenyellow;
+            margin:30px;
+            margin-left: 30%;
+            margin-bottom: 30%;
+            height:330px;
+        
+        }
+        h1 {
+            color: #333;
+           
+            text-align: center;
+            justify-content: center;
+            text-transform: uppercase;
+            text-decoration: dashed;
+            text-transform: capitalize;
+            text-shadow: 0ex;
+
+           
+
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            background-color: #007BFF;
+            color: rgb(10, 11, 10);
+            cursor: cursor;
+            border-radius: 5px;
+            border:5px solid black;
+            box-shadow: 0px;
+            margin:30px;
+
+        }
+        button:hover {
+            background-color: #62e55e;
+            color:black;
+            text-align: right;
+           
+            cursor: all-scroll;
+            animation-timing-function: cubic-bezier();
+            
+            
+        }
+        h2 {
+            font-size: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: 0px 0px 10px rgba(217, 96, 96, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>voice to Text converter</h1>
+        <button id="start-btn">  Listening</button>
+        <h1 id="output">voice in text form..</h1>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById("start-btn");
+        const output = document.getElementById("output");
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.continuous = false;
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+
+        startBtn.addEventListener("click", () => {
+            recognition.start();
+            startBtn.textContent = " Listening...";
+        });
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            output.textContent = transcript;
+            startBtn.textContent = "  Listening";
+        };
+
+        recognition.onerror = (event) => {
+            output.textContent = "Error occurred: " + event.error;
+            startBtn.textContent = "  Listening";
+        };
+    </script>
+</body>
+</html>
